@@ -101,14 +101,44 @@ class SinglyLinkedList:
             # point the prev_node's .next to the new node
             prev_node.next = new_node
 
-months = SinglyLinkedList()
-months.append('August')
-months.push('June')
-months.push('April')
-months.push('January')
-months.append('October')
-months.insert_after('June', 'July')
-months.insert_after('April', 'May')
-months.insert_after('November', 'December')
+    # Method to remove a node by value
+    def remove_node(self, value_to_remove):
+        # Check if the list is empty
+        if self.head is None:
+            print('List is empty, nothing to remove')
+            return
+        # If it is the head node that we are trying to remove
+        if self.head.value == value_to_remove:
+            # Set the .head attribute to be the next node
+            self.head = self.head.next
+            return
+        # Start at the first node
+        current_node = self.head
+        # While the current_node has a next value
+        while current_node.next is not None:
+            # Check if the next node is the node we are trying to remove
+            if current_node.next.value == value_to_remove:
+                # Set the current node's next to the next node's next
+                current_node.next = current_node.next.next
+                return
+            # If the next node is not the node we are trying to remove
+            current_node = current_node.next
+        # If we get to the end of the LL, the node was never there
+        print(f"{value_to_remove} is not in the Linked List")
 
-months.show()
+
+if __name__ == "__main__":
+    months = SinglyLinkedList()
+    months.remove_node('January')
+    months.append('Codember')
+    months.append('August')
+    months.push('June')
+    months.push('April')
+    months.push('January')
+    months.append('October')
+    months.remove_node('January')
+    months.insert_after('June', 'July')
+    months.insert_after('April', 'May')
+    months.remove_node('Codember')
+
+    months.show()
